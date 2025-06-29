@@ -4,7 +4,7 @@ import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa"
 
 function Topbar() {
   return (
-    <div className="bg-[#ea2e0e] text-white px-4 py-2 w-full">
+    <div className="fixed top-0 left-0 w-full text-white z-50 bg-[#ea2e0e]">
       <div className="flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto">
         {/* Social Media Links */}
         <div className="hidden md:flex space-x-4 mb-2 md:mb-0">
