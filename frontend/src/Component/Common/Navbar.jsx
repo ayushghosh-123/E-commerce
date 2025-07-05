@@ -41,7 +41,7 @@ function Navbar() {
           {/* Center - Navigation Links (Hidden on small screens) */}
           <div className="hidden md:flex space-x-6 lg:space-x-8">
             <Link
-              to="#"
+              to="/collection"
               className="
               text-gray-600 hover:text-gray-900 
               text-sm font-medium uppercase 
@@ -166,7 +166,7 @@ function Navbar() {
         <div className="p-4">
           <h2 className="text-xl font-semibold mb-4 ">Menu</h2>
           <nav className="space-y-4">
-            <Link to='#' onClick={toggleNavDrawer} className="block text-gray-600 hover:text-black "> Men </Link>
+            <Link to='/collection' onClick={toggleNavDrawer} className="block text-gray-600 hover:text-black "> Men </Link>
             <Link to='#' onClick={toggleNavDrawer} className="block text-gray-600 hover:text-black "> WoMen </Link>
             <Link to='#' onClick={toggleNavDrawer} className="block text-gray-600 hover:text-black "> Top Wear </Link>
             <Link to='#' onClick={toggleNavDrawer} className="block text-gray-600 hover:text-black "> Bottom Wear </Link>

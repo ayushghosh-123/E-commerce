@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
 import ProductGrid from "./ProductGrid";
+import { useCart } from "../../Context/CardContext";
 
 const products = [
   {
@@ -16,11 +17,11 @@ const products = [
     colors: ["Blue", "Black", "Grey"],
     images: [
       {
-        url: "https://picsum.photos/id/1011/400/400?random=1",
+        url: "https://picsum.photos/500/500?random=1",
         altText: "Stylish jacket 1",
       },
       {
-        url: "https://picsum.photos/id/1013/400/400?random=2",
+        url: "https://picsum.photos/500/500?random=2",
         altText: "Stylish jacket 2",
       },
     ],
@@ -62,6 +63,8 @@ function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState(null);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
+    const { addToCart } = useCart();
+
   const handleAddToCart = () => {
     if (!selectedColor || !selectedSize) {
       toast.error("Please select a size and color before adding", {
@@ -72,6 +75,9 @@ function ProductDetails() {
 
     setIsButtonDisabled(true);
 
+    // Add to cart context
+    addToCart(product, quantity, selectedSize, selectedColor);
+
     setTimeout(() => {
       toast.success("Product added to cart", {
         duration: 1000,
@@ -79,6 +85,7 @@ function ProductDetails() {
       setIsButtonDisabled(false);
     }, 1000);
   };
+
 
   return (
     <div className="p-6">
