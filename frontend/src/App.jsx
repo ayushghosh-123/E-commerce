@@ -10,6 +10,8 @@ import ProductDetails from "./Component/Products/productDetails.jsx";
 import { CartProvider } from "./Context/CardContext.jsx";
 import Checkout from "./Component/Cart/checkout.jsx";
 import OrderConformationPage from "./Pages/OrderConformationPage.jsx";
+import OrderDetailPages from "./Pages/OrderDetailPages.jsx";
+import Myorder from "./Pages/Myorder.jsx";
 // import './App.css'
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
           <Route path='product/:id' element={<ProductDetails/>}/>
           <Route path='checkout' element={<Checkout/>}/>
           <Route path='order-confirmation' element={<OrderConformationPage/>}/>
+          <Route path='order/:id' element={<OrderDetailPages/>}/>
+          <Route path='my-orders' element={<Myorder/>}/>
           </Route>
           <Route/>
       </Routes>

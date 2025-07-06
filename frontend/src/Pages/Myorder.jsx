@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Myorder() {
   const [order, setOrders] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     //  simulate fetching orders
@@ -96,6 +98,10 @@ function Myorder() {
     }, 1000);
   }, []);
 
+  const handleRowclick = (orderId) => {
+      navigate(`/order/${orderId}`)
+  }
+
   return (
     <div className="max-7xl mx-auto p-4 sm:p-6 ">
         <h2 className="text-xl sm:text-2xl font-bold mb-6">My Orders</h2>
@@ -121,7 +127,7 @@ function Myorder() {
                   </tr>
                 ) : (
                   order.map((ord) => (
-                    <tr key={ord.order_id} className="border-b hover:bg-gray-50 transition">
+                    <tr key={ord.order_id} onClick={()=>handleRowclick(order.order_id)} className="border-b hover:bg-gray-50 transition">
                       <td className="py-2 px-4">
                         <img
                           src={ord.orderItem[0]?.image}

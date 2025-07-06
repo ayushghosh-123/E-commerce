@@ -41,7 +41,7 @@ function Navbar() {
           {/* Center - Navigation Links (Hidden on small screens) */}
           <div className="hidden md:flex space-x-6 lg:space-x-8">
             <Link
-              to="/collection"
+              to="/collection/men"
               className="
               text-gray-600 hover:text-gray-900 
               text-sm font-medium uppercase 
@@ -52,7 +52,7 @@ function Navbar() {
               Men
             </Link>
             <Link
-              to="#"
+              to="/collection/women"
               className="
               text-gray-600 hover:text-gray-900 
               text-sm font-medium uppercase 

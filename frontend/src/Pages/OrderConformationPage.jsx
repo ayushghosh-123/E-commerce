@@ -30,7 +30,16 @@ const checkout = {
   }
 }
 
+
 function OrderConfirmationPage() {
+
+  const calculateEstimateDelivery = (createdAt) =>{
+    const orderDate = new Date(createdAt) 
+    orderDate.setDate(orderDate.getDate() + 10)
+    return orderDate.toLocaleDateString()
+ }
+
+
   return (
     <div className='max-w-4xl mx-auto bg-white mt-6 p-6 rounded-lg shadow'>
       <h1 className="text-4xl font-bold text-center text-emerald-700 mb-8">
@@ -53,8 +62,13 @@ function OrderConfirmationPage() {
                 })}
               </p>
             </div>
+             <div>
+            <p className="text-emerald-700 text-lg font-semibold ">
+              Estimated Delivery: {calculateEstimateDelivery(checkout.createAt)}
+            </p>
           </div>
-
+          </div>
+          
           {/* Order Items */}
           <div>
             <h3 className="text-2xl font-semibold mb-4">Your Items</h3>
@@ -82,6 +96,11 @@ function OrderConfirmationPage() {
             <p>{checkout.shippingAddress.address}</p>
             <p>{checkout.shippingAddress.city}, {checkout.shippingAddress.country}</p>
           </div>
+            {/* payment Info */}
+            <div className="text-lg font-semibold mb-2">
+              <h4 className="text-lgfont-semibold mb-2">Payment</h4>
+              <p className="text-gray-600">Paypal</p>
+            </div>
         </div>
       )}
     </div>
