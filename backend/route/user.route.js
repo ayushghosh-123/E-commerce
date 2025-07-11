@@ -1,14 +1,15 @@
 import express from 'express';
 import User from '../models/user.model.js';
 import Jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt'; // for hashing passwords
+import asyncHandler from "express-async-handler";
+import protect from '../Middleware/authMiddleware.js';
 
 const route = express.Router();
 
 // @route   POST /api/user/register
 // @desc    Register a new user
 // @access  Public
-route.post("/register", async (req, res) => {
+route.post("/register", asyncHandler(async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
@@ -18,25 +19,21 @@ route.post("/register", async (req, res) => {
             return res.status(400).json({ message: "User already exists" });
         }
 
-        // Create a new user instance
+        // Create a new user instance (no manual hashing here)
         user = new User({
             name,
             email,
-            password, // we'll hash this before saving
+            password, // let pre-save hook hash this
         });
 
-        // Hash the password before saving
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(password, salt);
-
-        // Save user to DB
+        // Save user to DB (pre-save will hash password)
         await user.save();
 
         // Generate JWT Token
         const payload = {
             user: {
                 id: user._id,
-                role: user.role, // i   nclude role if needed
+                role: user.role,
             },
         };
 
@@ -58,18 +55,72 @@ route.post("/register", async (req, res) => {
         console.error(error);
 
         if (error.name === 'ValidationError') {
-            // Mongoose validation error (like invalid email)
             return res.status(400).json({ message: error.message });
         }
 
         res.status(500).send("Server Error");
     }
-});
+}));
 
-// user login post /api/user/login
-// authenticate user
-// public
+// @route   POST /api/user/login
+// @desc    Authenticate user & get token
+// @access  Public
 
-route.post('/login', )
+
+route.post("/login", asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Check if user exists
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
+
+        // Check password using model method
+        const isMatch = await user.matchPassword(password);
+        console.log(isMatch)
+
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid credentials" });
+        }
+
+        // Generate JWT Token
+        const payload = {
+            user: {
+                id: user._id,
+                role: user.role,
+            },
+        };
+
+        const token = Jwt.sign(payload, process.env.JWT_SECRET, {
+            expiresIn: "7d",
+        });
+
+        // Send response
+        res.json({
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+            },
+            token,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server Error");
+    }
+}));
+
+
+// @route GET /api/users/profile
+// desc Get logged-in user's perofile(protected Route)
+// @acess private
+
+route.get("/profile", protect, async(req, res) => {
+    res.json(req.user);
+
+})
 
 export default route;
