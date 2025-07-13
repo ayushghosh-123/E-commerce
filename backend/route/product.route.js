@@ -157,6 +157,20 @@ router.delete("/:id", protect, admin, async (req, res) => {
 
 
 // @route GET / API/ PRODUCTS
+// @desc Get all products with optional query filter
+// @acess Public
+
+router.get("/", async(req, res)=>{
+  try {
+    const {collection, size, color, gender, minPrice, maxPrice, sortBy, search, category, material, brand, limit} = req.query;
+    let query={}
+    if(collection && collection.toLocaleLowerCase() !== 'alt'){
+      query.collections = collection
+    }
+  } catch (error) {
+    
+  }
+})
 
 
 export default router;
