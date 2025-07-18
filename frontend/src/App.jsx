@@ -12,6 +12,7 @@ import Checkout from "./Component/Cart/checkout.jsx";
 import OrderConformationPage from "./Pages/OrderConformationPage.jsx";
 import OrderDetailPages from "./Pages/OrderDetailPages.jsx";
 import Myorder from "./Pages/Myorder.jsx";
+import AdminLayout from "./Component/Admin/AdminLayout.jsx";
 // import './App.css'
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path='order-confirmation' element={<OrderConformationPage/>}/>
           <Route path='order/:id' element={<OrderDetailPages/>}/>
           <Route path='my-orders' element={<Myorder/>}/>
+          <Route path='/admin' element={<AdminLayout/>}/>
           </Route>
           <Route/>
       </Routes>

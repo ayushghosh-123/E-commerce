@@ -24,7 +24,7 @@ route.post("/register", asyncHandler(async (req, res) => {
         email,
         password, // Pre-save hook should hash this
     });
-
+    
     if (user) {
         const payload = {
             user: {

@@ -88,9 +88,10 @@ function Navbar() {
 
           {/* Right - User, Cart, Search Icons & Mobile Menu Toggle */}
           <div className="flex items-center space-x-4 lg:space-x-6">
+            <Link to='/admin' className="block bg-black px-2 rounded text-sm text-white">Admin</Link>
             {/* User Icon */}
             <Link
-              to="/profile"
+              to="/protext-file"
               className="
               text-gray-600 hover:text-gray-900 
               transition-colors duration-200 
