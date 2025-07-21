@@ -34,14 +34,38 @@ const EditProductPage = () => {
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    console.log(file);
-    // TODO: handle file upload logic
+    if (file) {
+      // Create a URL for the uploaded file to preview it
+      const imageUrl = URL.createObjectURL(file);
+      
+      // Add the new image to the existing images array
+      setProductsData(prevData => ({
+        ...prevData,
+        images: [...prevData.images, { url: imageUrl }]
+      }));
+      
+      console.log(file);
+      // TODO: handle actual file upload to server
+    }
   };
+
+  const removeImage = (indexToRemove) => {
+    setProductsData(prevData => ({
+      ...prevData,
+      images: prevData.images.filter((_, index) => index !== indexToRemove)
+    }));
+  };
+
+  const handleSubmit = (e)=>{
+    e.preventDefault()
+    console.log(productsData);
+    
+  }
 
   return (
     <div className="max-w-5xl mx-auto p-6 shadow-md rounded-md">
       <h2 className="text-3xl font-bold mb-6">Edit Product</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         {/* Name */}
         <div className="mb-6">
           <label className="block font-semibold mb-2">Product Name</label>
@@ -146,8 +170,32 @@ const EditProductPage = () => {
         {/* Image upload */}
         <div className="mb-6">
           <label className="block font-semibold mb-2">Upload Image</label>
-          <input type="file" onChange={handleImageUpload} />
+          <input 
+            type="file" 
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="mb-4"
+          />
+          <div className="flex gap-4 mt-4 flex-wrap">
+            {productsData.images.map((image, index) => (
+              <div key={index} className="relative">
+                <img 
+                  src={image.url} 
+                  alt={image.altText || "Product Image"} 
+                  className="w-20 h-20 object-cover rounded-md shadow-md"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeImage(index)}
+                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
+        <button type='submit' className='w-full bg-green-500  text-white py-2 rounded-md hover:bg-green-600 transition-color'> Update Products</button>
       </form>
     </div>
   );

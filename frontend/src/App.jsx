@@ -24,6 +24,7 @@ import AdminHome from "./Pages/AdminHome.jsx";
 import Usermanagment from "./Component/Admin/Usermanagment.jsx";
 import ProductManagment from "./Component/Admin/ProductManagment.jsx";
 import EditProductPage from "./Component/Admin/EditProductPage.jsx";
+import OrderManagment from "./Component/Admin/OrderManagment.jsx";
 
 // Main App component
 function App() {
@@ -58,6 +59,7 @@ function App() {
              <Route path='users' element={<Usermanagment/>} />
              <Route path='products' element={<ProductManagment/>} />
              <Route path='products/:id/edit' element={<EditProductPage/>} />
+             <Route path='orders' element={<OrderManagment/>} />
           </Route>
         </Routes>
       </BrowserRouter>
