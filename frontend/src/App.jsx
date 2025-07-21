@@ -22,6 +22,8 @@ import Myorder from "./Pages/Myorder.jsx"; // User's order history page
 import { CartProvider } from "./Context/CardContext.jsx"; // Provides shopping cart context
 import AdminHome from "./Pages/AdminHome.jsx";
 import Usermanagment from "./Component/Admin/Usermanagment.jsx";
+import ProductManagment from "./Component/Admin/ProductManagment.jsx";
+import EditProductPage from "./Component/Admin/EditProductPage.jsx";
 
 // Main App component
 function App() {
@@ -54,6 +56,8 @@ function App() {
             {/* Admin-specific sub-routes go here */}
             <Route index element={<AdminHome/>} />
              <Route path='users' element={<Usermanagment/>} />
+             <Route path='products' element={<ProductManagment/>} />
+             <Route path='products/:id/edit' element={<EditProductPage/>} />
           </Route>
         </Routes>
       </BrowserRouter>
